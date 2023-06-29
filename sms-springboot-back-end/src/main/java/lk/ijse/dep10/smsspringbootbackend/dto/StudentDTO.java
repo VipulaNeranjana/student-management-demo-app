@@ -13,7 +13,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 public class StudentDTO implements Serializable {
-    @NotBlank(message = "id cant be empty")
     private int id;
     @NotBlank(message = "name cant be empty")
     private String name;
