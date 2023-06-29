@@ -2,14 +2,17 @@ package lk.ijse.dep10.smsspringbootbackend.business.impl;
 
 import lk.ijse.dep10.smsspringbootbackend.business.StudentBO;
 import lk.ijse.dep10.smsspringbootbackend.business.exception.DuplicateRecordException;
-import lk.ijse.dep10.smsspringbootbackend.business.exception.RecordNotFoundException;
 import lk.ijse.dep10.smsspringbootbackend.business.util.Transformer;
 import lk.ijse.dep10.smsspringbootbackend.dao.custom.StudentDAO;
 import lk.ijse.dep10.smsspringbootbackend.dto.StudentDTO;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
+@Transactional
 public class StudentBOImpl implements StudentBO {
     private final StudentDAO studentDAO;
     private final Transformer transformer;
@@ -33,10 +36,11 @@ public class StudentBOImpl implements StudentBO {
     }
 
     @Override
-    public void updateStudent(StudentDTO studentDTO) throws Exception {
-        if(!studentDAO.existsById(String.valueOf(studentDTO.getId()))){
-            throw new RecordNotFoundException(studentDTO.getId()+ " already exist");
+    public void delete(String studentId) throws Exception {
+        if(!studentDAO.existsById(studentId)){
+            throw new DuplicateRecordException(studentId+ " not exist");
         }
-        studentDAO.update(transformer.toStudentEntity(studentDTO));
+        studentDAO.deleteById(studentId);
     }
+
 }

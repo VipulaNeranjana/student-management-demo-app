@@ -8,6 +8,6 @@ public interface StudentBO {
 
     List<StudentDTO> getAllStudents() throws Exception;
     void saveStudent(StudentDTO studentDTO) throws Exception;
-    void updateStudent(StudentDTO studentDTO) throws Exception;
+    void delete(String studentId) throws Exception;
 
 }

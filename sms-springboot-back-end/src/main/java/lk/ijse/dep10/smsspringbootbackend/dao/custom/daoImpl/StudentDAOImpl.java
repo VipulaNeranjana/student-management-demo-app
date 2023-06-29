@@ -5,13 +5,14 @@ import lk.ijse.dep10.smsspringbootbackend.entity.Student;
 import lk.ijse.dep10.smsspringbootbackend.entity.SuperEntity;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 import static lk.ijse.dep10.smsspringbootbackend.dao.util.Mappers.STUDENT_ROW_MAPPER;
-
+@Repository
 public class StudentDAOImpl implements StudentDAO {
 
     private final JdbcTemplate jdbcTemplate;
