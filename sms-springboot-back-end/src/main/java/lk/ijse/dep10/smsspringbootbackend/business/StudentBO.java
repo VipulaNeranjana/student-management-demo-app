@@ -7,7 +7,7 @@ import java.util.List;
 public interface StudentBO {
 
     List<StudentDTO> getAllStudents() throws Exception;
-    void saveStudent(StudentDTO studentDTO) throws Exception;
+    StudentDTO saveStudent(StudentDTO studentDTO) throws Exception;
     void delete(String studentId) throws Exception;
 
 }

@@ -27,8 +27,8 @@ public class StudentController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveStudent(@RequestBody @Valid StudentDTO studentDTO) throws Exception {
-        studentBO.saveStudent(studentDTO);
+    public StudentDTO saveStudent(@RequestBody @Valid StudentDTO studentDTO) throws Exception {
+        return studentBO.saveStudent(studentDTO);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

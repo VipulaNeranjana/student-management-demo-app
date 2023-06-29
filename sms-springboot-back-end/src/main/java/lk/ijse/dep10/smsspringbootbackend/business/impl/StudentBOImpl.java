@@ -5,6 +5,7 @@ import lk.ijse.dep10.smsspringbootbackend.business.exception.DuplicateRecordExce
 import lk.ijse.dep10.smsspringbootbackend.business.util.Transformer;
 import lk.ijse.dep10.smsspringbootbackend.dao.custom.StudentDAO;
 import lk.ijse.dep10.smsspringbootbackend.dto.StudentDTO;
+import lk.ijse.dep10.smsspringbootbackend.entity.Student;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,11 +29,12 @@ public class StudentBOImpl implements StudentBO {
     }
 
     @Override
-    public void saveStudent(StudentDTO studentDTO) throws Exception {
+    public StudentDTO saveStudent(StudentDTO studentDTO) throws Exception {
         if(studentDAO.existsById(String.valueOf(studentDTO.getId()))){
             throw new DuplicateRecordException(studentDTO.getId()+ " already exist");
         }
-        studentDAO.save(transformer.toStudentEntity(studentDTO));
+        Student student = studentDAO.save(transformer.toStudentEntity(studentDTO));
+        return transformer.fromStudentEntity(student);
     }
 
     @Override

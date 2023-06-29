@@ -5,9 +5,13 @@ import lk.ijse.dep10.smsspringbootbackend.entity.Student;
 import lk.ijse.dep10.smsspringbootbackend.entity.SuperEntity;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +32,14 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public Student save(Student entity) throws Exception {
-        jdbcTemplate.update("INSERT INTO student (id,name,address) VALUES (?,?,?)",entity.getId(),entity.getName(),entity.getAddress());
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(con -> {
+            PreparedStatement stm = con.prepareStatement("INSERT INTO student (name,address) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+            stm.setString(1, entity.getName());
+            stm.setString(2, entity.getAddress());
+            return stm;
+        }, keyHolder);
+        entity.setId(keyHolder.getKey().intValue());
         return entity;
     }
 
