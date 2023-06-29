@@ -34,3 +34,13 @@ router.post('/', async (req, res) => {
         }
     }
 });
+
+router.delete('/:id', async (req, res) => {
+    const result = await datasource.query('DELETE FROM course WHERE id=?',[req.params.id]);
+    if (result.affectedRows === 1){
+        res.sendStatus(204);
+    }
+    else{
+        res.status(404).send("Course id not found");
+    }
+});
