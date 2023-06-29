@@ -35,8 +35,8 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
-    const result = await datasource.query('DELETE FROM course WHERE id=?',[req.params.id]);
+router.delete('/:courseId', async (req, res) => {
+    const result = await datasource.query('DELETE FROM course WHERE id=?',[req.params.courseId]);
     if (result.affectedRows === 1){
         res.sendStatus(204);
     }
